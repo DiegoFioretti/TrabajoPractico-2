@@ -1,9 +1,10 @@
-Debug*/
-Release*/
-x64*/
-vs.*/
+
+Debug/
+
+Release/
+
+\.vs/TrabajoPractico-2/v14/
+
 *.db
 
-
-
-
+\.vs/
