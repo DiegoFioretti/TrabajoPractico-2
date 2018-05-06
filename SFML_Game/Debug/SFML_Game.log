@@ -1,14 +1,9 @@
 ﻿  Main.cpp
-c:\users\administrador\documents\clones\trabajopractico-2\sfml_game\main.cpp(9): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\administrador\documents\clones\trabajopractico-2\sfml_game\main.cpp(44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\administrador\documents\clones\trabajopractico-2\sfml_game\main.cpp(47): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\administrador\documents\clones\trabajopractico-2\sfml_game\main.cpp(50): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\administrador\documents\clones\trabajopractico-2\sfml_game\main.cpp(53): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  SFML_Game.vcxproj -> C:\Users\Administrador\Documents\Clones\TrabajoPractico-2\Debug\SFML_Game.exe
-  SFML_Game.vcxproj -> C:\Users\Administrador\Documents\Clones\TrabajoPractico-2\Debug\SFML_Game.pdb (Partial PDB)
-          1 archivo(s) copiado(s).
-          1 archivo(s) copiado(s).
-          1 archivo(s) copiado(s).
-          1 archivo(s) copiado(s).
-          1 archivo(s) copiado(s).
-          1 archivo(s) copiado(s).
+  SFML_Game.vcxproj -> C:\Users\MrDinoPizza\Documents\Clones\TrabajoPractico-2\Debug\SFML_Game.exe
+  SFML_Game.vcxproj -> C:\Users\MrDinoPizza\Documents\Clones\TrabajoPractico-2\Debug\SFML_Game.pdb (Partial PDB)
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.

@@ -3,77 +3,86 @@
 #include <SFML/System/Clock.hpp>
 #include <iostream>
 using namespace std;
-int windowHeight=500;
-int windowWidth=1000;
-int playerSpeed = 50;
-int gravity = 9.10;
+#define windowHeight 700
+#define windowWidth 1024
+#define playerSpeed 400
+#define playerCode 1
+#define bossCode 2
 
-sf::Texture texture;
+sf::Texture playerTexture;
+sf::Texture bossTexture;
 sf::Sprite player;
-//sf::Clock clock;
+sf::Sprite boss;
 
-void CreateTexture() {
-	if (!texture.loadFromFile("Resource/dog.png"))
-	{
+
+void CreateTextures() {
+	if (!playerTexture.loadFromFile("Resource/playerShip.png")){
 		std::cout << "Load failed" << std::endl;
-
+		system("pause");
+	}
+	if (!bossTexture.loadFromFile("Resource/boss.png")) {
+		std::cout << "Load failed" << std::endl;
 		system("pause");
 	}
 }
-void SetSprite(sf::Sprite &sprite) {
+void SetSprite(sf::Sprite &sprite, sf::Texture &texture, int code) {
+	
 	sprite.setTexture(texture);
-	/*
-	// position
-	sprite.setPosition(sf::Vector2f(10, 50)); // absolute position
-	sprite.move(sf::Vector2f(5, 10)); // offset relative to the current position
 
-	// rotation
-	sprite.setRotation(90); // absolute angle
-	sprite.rotate(15); // offset relative to the current angle
-
-	// scale
-	sprite.setScale(sf::Vector2f(0.5f, 2.f)); // absolute scale factor
-	sprite.scale(sf::Vector2f(1.5f, 3.f)); // factor relative to the current scale
-	*/
-}
-void PlayerMovement() {
-	//player.move(0, gravity);
-
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		player.move(-playerSpeed, 0);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		player.move(playerSpeed, 0);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		player.move(0, -playerSpeed);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		player.move(0, playerSpeed);
-	}
-}
-
-int main(){
-	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML works!");
-
-	CreateTexture();
-	SetSprite(player);
-
-
-	while (window.isOpen())
+	switch (code)
 	{
-		//sf::Time elapsed = clock.restart();
-		//updateGame(elapsed);
+		case playerCode:
+			//position
+			sprite.setPosition(sf::Vector2f((windowWidth / 2) - 50, (windowHeight / 2) + 200)); // absolute position
+			//scale
+			sprite.setScale(sf::Vector2f(1.f, 1.f)); // absolute scale factor
+			sprite.scale(sf::Vector2f(0.25f, 0.25f)); // factor relative to the current scale
+		break;
+		case bossCode:
+			//position
+			sprite.setPosition(sf::Vector2f((windowWidth / 2) - 50, (windowHeight / 2) + 200)); // absolute position
+			//scale
+			sprite.setScale(sf::Vector2f(1.f, 1.f)); // absolute scale factor
+			sprite.scale(sf::Vector2f(0.25f, 0.25f)); // factor relative to the current scale
+		break;
+	}
+}
+void PlayerControl(sf::Time deltaTime) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player.getPosition().x > 0) {
+		player.move(-playerSpeed * deltaTime.asSeconds(), 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && player.getPosition().x < windowWidth - 100) {
+		player.move(playerSpeed * deltaTime.asSeconds(), 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && player.getPosition().y > 0) {
+		player.move(0, -playerSpeed * deltaTime.asSeconds());
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && player.getPosition().y < windowHeight - 80) {
+		player.move(0, playerSpeed * deltaTime.asSeconds());
+	}
+}
+void init(){
+	CreateTextures();
+	SetSprite(player, playerTexture, playerCode);
+	SetSprite(boss, bossTexture, bossCode);
+}
+int main(){
+	init();
+
+	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML works!");
+	window.setFramerateLimit(60);
+	sf::Clock clock;
+
+	while (window.isOpen()){
+		sf::Time elapsed = clock.getElapsedTime();
+		clock.restart();
 		sf::Event event;
-		while (window.pollEvent(event))
-		{		
+		while (window.pollEvent(event)){
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
 				window.close();
 			}
-			PlayerMovement();
+			PlayerControl(elapsed);
 		}
-
 		window.clear();
 		window.draw(player);
 		window.display();
