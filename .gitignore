@@ -1,11 +1,8 @@
-Debug/
-Release/
-x64/
-vs./
-SFML_Game/Debug
-SFML_Game/Release
-SFML_Game/x64
-.db
+Debug*/
+Release*/
+x64*/
+vs.*/
+*.db
 
 
 
