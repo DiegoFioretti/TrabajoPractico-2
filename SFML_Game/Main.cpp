@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/System/Clock.hpp>
+#ifdef DEBUG
+	#include <vld.h>
+#endif
 #include <iostream>
 using namespace std;
 #define windowHeight 700
