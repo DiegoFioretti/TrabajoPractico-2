@@ -7,20 +7,27 @@ using namespace std;
 #define windowWidth 1024
 #define playerSpeed 400
 #define playerCode 1
-#define bossCode 2
+#define enemyCode 2
+#define coinCode 3
+#define enemyArray 10
 
 sf::Texture playerTexture;
-sf::Texture bossTexture;
+sf::Texture enemyTexture;
+sf::Texture coinTexture;
 sf::Sprite player;
-sf::Sprite boss;
-
+sf::Sprite coin;
+sf::Sprite enemies[enemyArray];
 
 void CreateTextures() {
 	if (!playerTexture.loadFromFile("Resource/playerShip.png")){
 		std::cout << "Load failed" << std::endl;
 		system("pause");
 	}
-	if (!bossTexture.loadFromFile("Resource/boss.png")) {
+	if (!coinTexture.loadFromFile("Resource/boss.png")) {
+		std::cout << "Load failed" << std::endl;
+		system("pause");
+	}
+	if (!enemyTexture.loadFromFile("Resource/enemyBullet.png")) {
 		std::cout << "Load failed" << std::endl;
 		system("pause");
 	}
@@ -29,42 +36,57 @@ void SetSprite(sf::Sprite &sprite, sf::Texture &texture, int code) {
 	
 	sprite.setTexture(texture);
 
-	switch (code)
-	{
+	switch (code){
 		case playerCode:
 			//position
 			sprite.setPosition(sf::Vector2f((windowWidth / 2) - 50, (windowHeight / 2) + 200)); // absolute position
 			//scale
 			sprite.setScale(sf::Vector2f(1.f, 1.f)); // absolute scale factor
 			sprite.scale(sf::Vector2f(0.25f, 0.25f)); // factor relative to the current scale
+			//origin
+			sprite.setOrigin(sf::Vector2f(181, 154.5f));
 		break;
-		case bossCode:
+		case coinCode:
 			//position
-			sprite.setPosition(sf::Vector2f((windowWidth / 2) - 50, (windowHeight / 2) + 200)); // absolute position
+			sprite.setPosition(sf::Vector2f((windowWidth / 2) - 150, -100.f)); // absolute position
+			//scale
+			sprite.setScale(sf::Vector2f(0.5f, 0.5f)); // absolute scale factor
+			sprite.scale(sf::Vector2f(0.5f, 0.5f)); // factor relative to the current scale
+		break;
+		case enemyCode:
+			//position
+			//sprite.setPosition(sf::Vector2f((windowWidth / 2) - 50, (windowHeight / 2) + 200)); // absolute position
 			//scale
 			sprite.setScale(sf::Vector2f(1.f, 1.f)); // absolute scale factor
 			sprite.scale(sf::Vector2f(0.25f, 0.25f)); // factor relative to the current scale
-		break;
+			break;
 	}
 }
 void PlayerControl(sf::Time deltaTime) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player.getPosition().x > 0) {
 		player.move(-playerSpeed * deltaTime.asSeconds(), 0);
+		player.setRotation(270);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && player.getPosition().x < windowWidth - 100) {
 		player.move(playerSpeed * deltaTime.asSeconds(), 0);
+		player.setRotation(90);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && player.getPosition().y > 0) {
 		player.move(0, -playerSpeed * deltaTime.asSeconds());
+		player.setRotation(0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && player.getPosition().y < windowHeight - 80) {
 		player.move(0, playerSpeed * deltaTime.asSeconds());
+		player.setRotation(180);
 	}
 }
 void init(){
 	CreateTextures();
 	SetSprite(player, playerTexture, playerCode);
-	SetSprite(boss, bossTexture, bossCode);
+	SetSprite(coin, coinTexture, coinCode);
+	for (size_t i = 0; i < enemyArray; i++){
+		SetSprite(enemies[i], enemyTexture, enemyCode);
+	}
 }
 int main(){
 	init();
@@ -85,6 +107,10 @@ int main(){
 		}
 		window.clear();
 		window.draw(player);
+		window.draw(coin);
+		for (size_t i = 0; i < enemyArray; i++) {
+			window.draw(enemies[i]);
+		}
 		window.display();
 	}
 

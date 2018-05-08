@@ -166,7 +166,6 @@ COPY "$(SolutionDir)SFML-64b\bin\sfml-window-2.dll" "$(OutDir)"</Command>
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resource\boss.png" />
     <Image Include="..\Resource\playerShip.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
